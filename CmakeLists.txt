@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.23)
+
+set(PROJECT_NAME ModernOpenGL)
+
+set(CMAKE_CXX_STANDARD 17)
+
+Project(${PROJECT_NAME} LANGUAGES CXX)
+
+#Add .cpp .h
+file(GLOB_RECURSE SOURCE_INCLUDE "Source/include/*.h")
+file(GLOB_RECURSE SOURCE_SRC "Source/src/*.cpp")
+add_executable(${PROJECT_NAME} 
+	"${SOURCE_INCLUDE}"
+	"${SOURCE_SRC}")
+
+set_property(TARGET ${PROJECT_NAME} PROPERTY
+	VS_DEBUGGER_WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}")
+
+#Add GLAD
+target_include_directories(${PROJECT_NAME} PUBLIC
+	"Dependencies/GLAD/include")
+target_sources(${PROJECT_NAME} PUBLIC "Dependencies/GLAD/src/glad.cpp")
+
+#Add GLFW
+set(GLFW3_ROOT "Dependencies/GLFW")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${PROJECT_SOURCE_DIR}/CMake")
+find_package(GLFW3 REQUIRED)
+target_include_directories(${PROJECT_NAME} PUBLIC ${GLFW3_INCLUDE_DIR})
+target_link_libraries(${PROJECT_NAME} PUBLIC ${GLFW3_LIBRARY})
+
+#Add STB
+target_include_directories(${PROJECT_NAME} PUBLIC "Dependencies/STB")
+
+#Add Maths Library
+set(MATHS_DIR "maths/LibMaths")
+file(GLOB_RECURSE MATH_SOURCES "${MATHS_DIR}/*.cpp" "${MATHS_DIR}/*.h")
+add_library(LibMaths STATIC EXCLUDE_FROM_ALL "${MATH_SOURCES}")
+target_include_directories(LibMaths PRIVATE ${MATHS_DIR})
+target_include_directories(${PROJECT_NAME} PUBLIC ${MATHS_DIR})
+target_link_libraries(${PROJECT_NAME} PUBLIC LibMaths)
