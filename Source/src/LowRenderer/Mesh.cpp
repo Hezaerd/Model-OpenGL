@@ -5,8 +5,3 @@ Mesh::Mesh(Model* mod, const Vec3<float>& rotation, const Vec3<float>& position,
 {
 	model_matrix = lm::Mat4<float>::create_transformation(rotation, position, scale);
 }
-
-void Mesh::update_uniform(Shader* shader, Camera& cam)
-{
-
-}

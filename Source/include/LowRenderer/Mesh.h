@@ -1,7 +1,7 @@
 #pragma once
+
 #include "../../include/Ressources/Model.h"
 #include "Mat4/Mat4.h"
-#include "Mat3/Mat3.h"
 
 #pragma region USING NAMESPACE
 using namespace lm;
@@ -15,6 +15,4 @@ public:
 
 	Model* model;
 	mat4 model_matrix;
-
-	void update_uniform(Shader* shader, Camera& cam);
 };

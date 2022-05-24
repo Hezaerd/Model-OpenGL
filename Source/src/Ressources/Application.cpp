@@ -115,15 +115,14 @@ void application::run()
 	Model* model1 = ressource_manager.create_ressource<Model>("assets/meshes/diablo3_pose/diablo3_pose.obj");
 	Model* model2 = ressource_manager.create_ressource<Model>("assets/meshes/armadillo.obj");
 	Model* model3 = ressource_manager.create_ressource<Model>("assets/meshes/floor.obj");
-	//Model* model3 = ressource_manager.create_ressource<Model>("assets/meshes/nol_gnom2.obj");
-	std::cout << "Model loaded in : " << glfwGetTime() << "\n";
+	std::cout << "Model(s) loaded in : " << glfwGetTime() << "\n";
 	Shader* shader = ressource_manager.create_ressource<Shader>("source/shaders/vertexShaderSource.glsl", "source/shaders/fragmentShaderSource.glsl");
 
 	// Mesh
 	// ----
-	Mesh mesh1(model1, vec3(90.f,0.f,0.f), vec3(-2.f,2.f,0.f), vec3(2.f,2.f,2.f));
+	Mesh mesh1(model1, vec3(0.f,90.f,0.f), vec3(-2.f,0.f,0.f), vec3(1.f,1.f,1.f));
 	meshes_.emplace_back(mesh1);
-	Mesh mesh2(model2, vec3(0.f,0.f,0.f), vec3(2.f,-0.15f,0.f), vec3(.7f,.7f,.7f));
+	Mesh mesh2(model2, vec3(0.f,90.f,0.f), vec3(2.f,-0.15f,0.f), vec3(.7f,.7f,.7f));
 	meshes_.emplace_back(mesh2);
 	Mesh mesh3(model3, vec3(0.f,0.f,0.f), vec3(0.f,0.f,0.f), vec3(10.f,1.f,10.f));
 	meshes_.emplace_back(mesh3);
@@ -139,7 +138,9 @@ void application::run()
 	temp1.identity;
 	Mat4<float> temp2;
 	temp2.identity;
-	// MAIN LOOP
+
+	// Main Loop
+	// ---------
 	while (!glfwWindowShouldClose(window_))
 	{
 		// time logic
@@ -164,15 +165,14 @@ void application::run()
 		// ----------
 		camera.update_view_matrix();
 
-		// meshes gestion
-		// --------------
-		meshes_[0].model_matrix = meshes_[0].model_matrix * temp1.z_rotation(1);
+		// meshes transformations
+		// ----------------------
+		meshes_[0].model_matrix = meshes_[0].model_matrix * temp1.y_rotation(-1);
 		meshes_[1].model_matrix = meshes_[1].model_matrix * temp2.y_rotation(1);
 
 
 		for (auto i : meshes_)
 		{
-
 			// update mvp
 			// ----------
 			mvp_ = camera.projection_matrix * camera.view_matrix * i.model_matrix;

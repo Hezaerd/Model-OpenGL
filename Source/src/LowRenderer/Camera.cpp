@@ -19,6 +19,8 @@ Camera::Camera(const float fov, const float width, const float height, const flo
 
 	// Mat
 	view_matrix.identity;
+	//mat4 temp_view;
+	//view_matrix = temp_view.look_at(position,position + front, up);
 	projection_matrix = Mat4<float>::proj_perspective(fov, near, far);
 }
 

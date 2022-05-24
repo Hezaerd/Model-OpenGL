@@ -107,7 +107,7 @@ bool Ressource::Model::load_obj(const char* filename)
 			if(!temp_uv.empty() && !temp_normal.empty() && only_vertices == false)
 			{
 				long long temp_uv_buffer[9]{0};
-				long long temp_normal_buffer[9]{0};
+			long long temp_normal_buffer[9]{0};
 				fscanf_s(file, "%lld/%lld/%lld %lld/%lld/%lld %lld/%lld/%lld\n", 
 																	&temp_position_buffer[0], &temp_uv_buffer[1], &temp_normal_buffer[2], 
 																	&temp_position_buffer[3], &temp_uv_buffer[4], &temp_normal_buffer[5], 
@@ -116,6 +116,8 @@ bool Ressource::Model::load_obj(const char* filename)
 				vertex_buffer_.emplace_back(temp_positition[temp_position_buffer[3] - 1], temp_uv[temp_uv_buffer[4] - 1], temp_normal[temp_normal_buffer[5] - 1]);
 				vertex_buffer_.emplace_back(temp_positition[temp_position_buffer[6] - 1], temp_uv[temp_uv_buffer[7] - 1], temp_normal[temp_normal_buffer[8] - 1]);
 			}
+
+			//std::cout << "Model.cpp | LoadOBJ : vertex_buffer size = " << vertex_buffer_.size() << "\n";
 		}
 	}
 	return true;

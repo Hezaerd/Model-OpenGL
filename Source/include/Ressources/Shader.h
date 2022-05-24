@@ -4,12 +4,7 @@
 #include "RessourcesManager.h"
 #include "../../include/Core/Debug/Assertion.h"
 #include "../../include/Core/Debug/Log.h"
-#include "../../include/LowRenderer/Camera.h"
 #include "Mat4/Mat4.h"
-
-#pragma region USING NAMESPACE
-using namespace LowRenderer;
-#pragma endregion
 
 namespace Ressource
 {
@@ -38,6 +33,5 @@ namespace Ressource
         void set_int(const std::string& name, int value) const;
         void set_float(const std::string& name, float value) const;
         void set_uniform_m4f(const char* name, lm::Mat4<float>matrix);
-        void set_uniform_m4v(const char* name, lm::Mat4<float>matrix);
     };
 }
